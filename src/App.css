@@ -1,25 +1,46 @@
+:root {
+  --text: #3f463f;
+  --bg-alt: #dcf0a8;
+  --primary: #8be773;
+  --alt: #73e795;
+  --active: #73e7cf;
+}
+
 .app {
-  margin: 0 1rem;
-  color: #3f463f;
+  color: var(--text);
+}
+
+.top-bar {
+  position: sticky;
+  top: 0;
+  margin: 0 0.5rem;
+  background: white;
+  z-index: 1;
+}
+
+.top-bar > h1 {
+  margin-top: 0;
+  padding-top: 0.5rem;
 }
 
 .country-list {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
   height: 100%;
-  overflow-x: auto;
+  width: 75%;
+  margin: auto;
 }
 
 .list-item {
   border-radius: 1rem;
-  background-color: #00FF80;
+  background-color: var(--primary);
   padding: 0 0.3rem;
   transition: background-color 0.1s ease-in;
 }
 
 .list-item:hover {
-  background-color: #00FFBF;
+  background-color: var(--alt);
 }
 
 .list-item > * {
@@ -28,4 +49,35 @@
 
 .bold {
   font-weight: bold;
+}
+
+.row {
+  padding-bottom: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.btn {
+  color: var(--text);
+  font-weight: bold;
+  background-color: var(--primary);
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  border: none;
+  transition: all 0.2s;
+}
+
+.btn:hover {
+  background-color: var(--alt);
+}
+
+.btn > svg {
+  position: relative;
+  transform: translateY(2px);
+}
+
+.btn:active {
+  transform: translate(-1px, 1px);
+  background-color: var(--active);
 }
