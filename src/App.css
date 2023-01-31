@@ -81,3 +81,20 @@
   transform: translate(-1px, 1px);
   background-color: var(--active);
 }
+
+@media (min-width: 1500px) {
+  .country-list {
+    width: 50%;
+  }
+}
+
+@media (max-width: 500px) {
+  .country-list {
+    width: 90%;
+  }
+
+  h1 {
+    font-size: x-large;
+    text-align: center;
+  }
+}
