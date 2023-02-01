@@ -28,13 +28,12 @@ function App() {
   }
 
   const ListItem = (props) => {
-    const {name, region, area, independent} = props.data;
+    const {name, region, area} = props.data;
     return (
       <div className='list-item'>
         <h2>{name}</h2>
         <p><span className='bold'>Region: </span>{region}</p>
         <p><span className='bold'>Area: </span>{area} km<sup>2</sup></p>
-        {/* <p><span className='bold'>Independant: </span>{independent ? "Yes" : "No"}</p> */}
       </div>
     );
   };
