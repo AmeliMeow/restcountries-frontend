@@ -4,6 +4,10 @@
   --primary: #8be773;
   --alt: #73e795;
   --active: #73e7cf;
+
+  --border-radius: 1rem;
+  --active-transform: translate(-1px, 1px);
+  --transition: all 0.1s ease-in;
 }
 
 .app {
@@ -36,7 +40,7 @@
   border-radius: 1rem;
   background-color: var(--primary);
   padding: 0 0.3rem;
-  transition: background-color 0.1s ease-in;
+  transition: var(--transition);
 }
 
 .list-item:hover {
@@ -66,6 +70,7 @@
   border-radius: 1rem;
   border: none;
   transition: all 0.2s;
+  cursor: pointer;
 }
 
 .btn:hover {
@@ -78,8 +83,63 @@
 }
 
 .btn:active {
-  transform: translate(-1px, 1px);
+  transform: var(--active-transform);
   background-color: var(--active);
+}
+
+select {
+  /* display: inline; */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: transparent;
+  border: none;
+  padding: 0 1em 0 0;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: bold;
+  cursor: inherit;
+  line-height: inherit;
+  z-index: 1;
+  outline: none;
+  color: var(--text);
+}
+
+.select select,
+.select::after {
+  grid-area: select;
+}
+
+.select {
+  display: grid;
+  grid-template-areas: "select";
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  background-color: var(--primary);
+  border-radius: var(--border-radius);
+  padding: 0.5rem 1rem;
+  transition: all 0.2s;
+}
+
+.select:hover {
+  background-color: var(--alt);
+}
+
+.select:active {
+  transform: var(--active-transform);
+}
+
+.select::after {
+  content: "";
+  justify-self: end;
+  width: 0.8rem;
+  height: 0.5rem;
+  display: inline-block;
+  background-color: #393939;
+  -webkit-clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+          clip-path: polygon(100% 0%, 0 0%, 50% 100%);
 }
 
 @media (min-width: 1500px) {
@@ -88,9 +148,14 @@
   }
 }
 
-@media (max-width: 500px) {
+/* Mobile devices */
+@media (max-width: 600px) {
   .country-list {
     width: 90%;
+  }
+
+  .top-bar > .row {
+    flex-direction: column;
   }
 
   h1 {
