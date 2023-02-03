@@ -4,6 +4,7 @@
   --primary: #8be773;
   --alt: #73e795;
   --active: #73e7cf;
+  --disabled: #bfd9c6;
 
   --border-radius: 1rem;
   --active-transform: translate(-1px, 1px);
@@ -28,9 +29,9 @@
 }
 
 .info {
-  margin: 0;
+  margin-block: 0;
   margin-left: auto;
-  align-self: baseline;
+  align-self: center;
 }
 
 .country-list {
@@ -79,6 +80,11 @@
   cursor: pointer;
 }
 
+.disabled .btn,
+.disabled .btn:hover {
+  background-color: var(--disabled);
+}
+
 .btn:hover {
   background-color: var(--alt);
 }
@@ -88,7 +94,8 @@
   transform: translateY(2px);
 }
 
-.btn:active {
+.btn:active,
+li.selected .btn{
   transform: var(--active-transform);
   background-color: var(--active);
 }
@@ -145,7 +152,18 @@ select {
   display: inline-block;
   background-color: #393939;
   -webkit-clip-path: polygon(100% 0%, 0 0%, 50% 100%);
-          clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+  clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+}
+
+.pagination {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  list-style: none;
+  box-sizing: content-box;
+  width: fit-content;
+  margin-inline: auto;
+  padding: 1rem;
 }
 
 @media (min-width: 1500px) {
@@ -156,6 +174,16 @@ select {
 
 /* Mobile devices */
 @media (max-width: 600px) {
+  /* Hiding some of the pagination elements */
+  .pagination li:not(.selected, .next, .previous){
+    display: none;
+  }
+
+  .info {
+    width: 100%;
+    text-align: center;
+  }
+
   .country-list {
     width: 90%;
   }

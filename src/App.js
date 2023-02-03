@@ -1,9 +1,17 @@
 import "normalize.css";
 import "./App.css";
 import { useEffect, useState } from "react";
-import { IoChevronDownOutline, IoChevronUpOutline } from "react-icons/io5";
+import {
+  IoChevronDownOutline,
+  IoChevronUpOutline,
+  IoCaretForward,
+  IoCaretBack,
+  IoEllipsisHorizontal,
+} from "react-icons/io5";
+import ReactPaginate from "react-paginate";
 
-let lt_area;
+let ltArea;
+const itemsPerPage = 10;
 
 function ItemList({ items }) {
   const ListItem = (props) => {
@@ -38,6 +46,7 @@ function App() {
   const [countries, setCountries] = useState([]);
   const [data_output, setOutput] = useState([]);
   const [sort_order, setSortOrder] = useState("asc");
+  const [current_page, setCurrentPage] = useState(0);
 
   useEffect(() => {
     fetch("https://restcountries.com/v2/all?fields=name,region,area")
@@ -45,7 +54,7 @@ function App() {
       .then((data) => {
         setCountries(data);
         setOutput(data);
-        lt_area = data.find((el) => el.name === "Lithuania").area; // Get area of Lithuania
+        ltArea = data.find((el) => el.name === "Lithuania").area; // Get area of Lithuania
       })
       .catch((reason) => console.log(reason));
   }, []);
@@ -64,20 +73,29 @@ function App() {
   };
 
   const filterData = (filter) => {
+    setCurrentPage(0); // Reset page when filter is changed
     if ("less_than_lt_area" === filter) {
-      setOutput(countries.filter((country) => country.area < lt_area));
+      setOutput(countries.filter((country) => country.area < ltArea));
     } else if ("oceania" === filter) {
       setOutput(countries.filter((country) => country.region === "Oceania"));
     } else if ("both" === filter) {
       setOutput(
         countries.filter(
-          (country) => country.region === "Oceania" && country.area < lt_area
+          (country) => country.region === "Oceania" && country.area < ltArea
         )
       );
     } else {
       setOutput(countries);
     }
   };
+
+  const handlePageChange = (event) => setCurrentPage(event.selected);
+
+  const pageCount = Math.ceil(data_output.length / itemsPerPage);
+  const currentPageItems = data_output.slice(
+    current_page * itemsPerPage,
+    current_page * itemsPerPage + itemsPerPage
+  );
 
   return (
     <div className="app">
@@ -107,7 +125,21 @@ function App() {
           <p className="info bold">{data_output.length} countries shown</p>
         </div>
       </div>
-      <ItemList items={data_output} />
+      <ItemList items={currentPageItems} />
+      <ReactPaginate
+        pageCount={pageCount}
+        pageRangeDisplayed={3}
+        className="pagination"
+        pageLinkClassName="btn page"
+        previousLinkClassName="btn"
+        nextLinkClassName="btn"
+        onPageChange={handlePageChange}
+        previousLabel={<IoCaretBack />}
+        nextLabel={<IoCaretForward />}
+        breakLabel={<IoEllipsisHorizontal />}
+        forcePage={current_page}
+        renderOnZeroPageCount={null}
+      />
     </div>
   );
 }
