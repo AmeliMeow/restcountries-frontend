@@ -5,6 +5,35 @@ import { IoChevronDownOutline, IoChevronUpOutline } from "react-icons/io5";
 
 let lt_area;
 
+function ItemList({ items }) {
+  const ListItem = (props) => {
+    const { name, region, area } = props.data;
+    return (
+      <div className="list-item">
+        <h2>{name}</h2>
+        <p>
+          <span className="bold">Region: </span>
+          {region}
+        </p>
+        <p>
+          <span className="bold">Area: </span>
+          {area} km<sup>2</sup>
+        </p>
+      </div>
+    );
+  };
+
+  return (
+    items.length > 0 && (
+      <div className="country-list">
+        {items.map((item, i) => (
+          <ListItem key={i} data={item}></ListItem>
+        ))}
+      </div>
+    )
+  );
+}
+
 function App() {
   const [countries, setCountries] = useState([]);
   const [data_output, setOutput] = useState([]);
@@ -50,23 +79,6 @@ function App() {
     }
   };
 
-  const ListItem = (props) => {
-    const { name, region, area } = props.data;
-    return (
-      <div className="list-item">
-        <h2>{name}</h2>
-        <p>
-          <span className="bold">Region: </span>
-          {region}
-        </p>
-        <p>
-          <span className="bold">Area: </span>
-          {area} km<sup>2</sup>
-        </p>
-      </div>
-    );
-  };
-
   return (
     <div className="app">
       <div className="top-bar">
@@ -95,13 +107,7 @@ function App() {
           <p className="info bold">{data_output.length} countries shown</p>
         </div>
       </div>
-      {countries.length > 0 && (
-        <div className="country-list">
-          {data_output.map((country, i) => (
-            <ListItem key={i} data={country}></ListItem>
-          ))}
-        </div>
-      )}
+      <ItemList items={data_output} />
     </div>
   );
 }
