@@ -21,7 +21,7 @@ function App() {
       .catch((reason) => console.log(reason));
   }, []);
 
-  const btn_sort_click = () => {
+  const sortData = () => {
     const s_order = sort_order === "desc" ? "asc" : "desc";
     setSortOrder(s_order);
     setOutput((prevOutput) =>
@@ -72,7 +72,7 @@ function App() {
       <div className="top-bar">
         <h1>Restcountries API Front-End</h1>
         <div className="row">
-          <button className="btn" onClick={btn_sort_click}>
+          <button className="btn" onClick={sortData}>
             Sort by name{" "}
             {sort_order === "desc" ? (
               <IoChevronDownOutline />
@@ -92,6 +92,7 @@ function App() {
               </option>
             </select>
           </div>
+          <p className="info bold">{data_output.length} countries shown</p>
         </div>
       </div>
       {countries.length > 0 && (

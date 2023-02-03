@@ -27,6 +27,12 @@
   padding-top: 0.5rem;
 }
 
+.info {
+  margin: 0;
+  margin-left: auto;
+  align-self: baseline;
+}
+
 .country-list {
   display: flex;
   flex-direction: column;
